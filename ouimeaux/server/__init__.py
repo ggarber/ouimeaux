@@ -81,6 +81,8 @@ class DeviceResource(Resource):
         getattr(dev, action)()
         return serialize(dev)
 
+    def options(self):
+        return ""
 
 api.add_resource(EnvironmentResource, '/api/environment')
 api.add_resource(DeviceResource, '/api/device/<string:name>')
@@ -105,6 +107,12 @@ class SocketNamespace(BaseNamespace):
 
     def __del__(self):
         statechange.disconnect(dispatch_uid=id(self))
+
+
+# routing for basic pages (pass routing onto the Angular app)
+# @app.route('/api/device/<string:name>', methods=['OPTIONS'])
+# def options(**kwargs):
+#    return ""
 
 
 # Now for the WebSocket api
